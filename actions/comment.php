@@ -3,8 +3,8 @@ include 'db.php';
 $para = $_POST["function"];
 if($para=="comment"){
     $postid=$_POST["postid"];
-    $comment=$_POST["comment"];
-    $user=$_POST["user"];
+    $comment=mysqli_real_escape_string($conn,$_POST["comment"]);
+    $user=mysqli_real_escape_string($conn,$_POST["user"]);
     if($user==""){
         $user = "Anonymous";    
     }     
@@ -34,10 +34,10 @@ if($para=="comment"){
                         </span>
                             <div class="chat-body clearfix">
                                 <div class="header">
-                                    <strong class="primary-font">'.$row["user"].'</strong> <small class="pull-right text-muted">
+                                    <strong class="primary-font">'.stripslashes($row["user"]).'</strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span>'.$row["time"].'</small>
                                 </div>
-                                <a style="color:black; max-width:100%;">'.$row["comment"].'</a>
+                                <a style="color:black; max-width:100%;">'.stripslashes($row["comment"]).'</a>
                                 &nbsp&nbsp&nbsp&nbsp'.$deletebtn.'</div></li>';
         }
     }

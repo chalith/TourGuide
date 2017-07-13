@@ -7,9 +7,9 @@
     
         $result = mysqli_query($conn,$sql);
     }else{
-        $subject=$_POST["subject"];
-        $title=$_POST["title"];          
-        $description=$_POST["description"];
+        $subject=mysqli_real_escape_string($conn,$_POST["subject"]);
+        $title=mysqli_real_escape_string($conn,$_POST["title"]);          
+        $description=mysqli_real_escape_string($conn,$_POST["description"]);
         $sql = "";
         if($_FILES["file"]["name"]!=""){
             $temporary = explode(".", $_FILES["file"]["name"]);

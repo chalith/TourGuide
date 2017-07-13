@@ -103,9 +103,6 @@
 								<button type="submit" class="btn btn-primary">
 									Create
 								</button>
-								<button class="btn btn-default">
-									Cancel
-								</button>
 							</div>
 							
 						</form>
