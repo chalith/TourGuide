@@ -3,12 +3,38 @@ include 'db.php';
 $para = $_POST["function"];
 if($para=="comment"){
     $postid=$_POST["postid"];
-    $comment=mysqli_real_escape_string($conn,$_POST["comment"]);
+    $description=mysqli_real_escape_string($conn,$_POST["comment"]);
     $user=mysqli_real_escape_string($conn,$_POST["user"]);
+    $splitarr1 = explode('\r\n',$description);
+        $description = "";
+        foreach($splitarr1 as $tmp1){
+            $splitarr2 = explode(" ", $tmp1);
+            foreach($splitarr2 as $tmp){
+                if(strlen($tmp)>=7){
+                    $islink = 0;
+                    $part1 = substr($tmp,0,7);
+                    $part2 = substr($tmp,0,8);
+                    if($part1 == "http://"){
+                        $islink = 1;
+                    }else if($part2 == "https://"){
+                        $islink = 1;
+                    }
+                    if($islink == 1){
+                        $description = $description.'<a style="color:blue;" href="'.$tmp.'">'.$tmp.'</a>';
+                    }else{
+                        $description = $description.$tmp;
+                    }
+                }else{
+                    $description = $description.$tmp;
+                }
+                $description = $description." ";
+            }
+            $description = $description."\n";
+        }
     if($user==""){
         $user = "Anonymous";    
     }     
-    $sql = "INSERT INTO comment(postid,user,comment) values('$postid','$user','$comment')";
+    $sql = "INSERT INTO comment(postid,user,comment) values('$postid','$user','$description')";
 
     mysqli_query($conn,$sql);
 }else if($para=="getcomment"){
@@ -26,7 +52,7 @@ if($para=="comment"){
                         $deletebtn = "";
 	
                         if(isset($_SESSION['username'])){
-                            $deletebtn = '<a onclick="deletecomment('.$row["id"].','.$postid.')">delete</a>';
+                            $deletebtn = '<a style="color:red;" onclick="deletecomment('.$row["id"].','.$postid.')">delete</a>';
                         }
 
                         $out = $out.'<li class="left clearfix" style="max-width:100%;"><span class="chat-img pull-left">
@@ -37,7 +63,7 @@ if($para=="comment"){
                                     <strong class="primary-font">'.stripslashes($row["user"]).'</strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span>'.$row["time"].'</small>
                                 </div>
-                                <a style="color:black; max-width:100%;">'.stripslashes($row["comment"]).'</a>
+                                <h6 style="color:black; max-width:100%;">'.stripslashes($row["comment"]).'</h6>
                                 &nbsp&nbsp&nbsp&nbsp'.$deletebtn.'</div></li>';
         }
     }

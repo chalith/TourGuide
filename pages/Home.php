@@ -291,7 +291,7 @@
 					<div class="col-sm-12 col-xs-12 overimage resize  animated fadeIn ">
 					<h4 class="text-center" ><?php echo stripslashes($row["title"]) ?></h4></div>
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
-					<h6 class="text-center" ><?php echo stripslashes($row["description"]) ?></h6></div>
+					<p><?php echo nl2br(stripslashes($row["description"])) ?></p></div>
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
 					<l class="text-center" ><?php echo $row["time"] ?></l></div>
 				</div>
@@ -407,7 +407,21 @@
 						}
 					});
 				}
-
+				function deletecomment(commentid,postid){
+					if(confirm("Do you want to delete this comment?")){
+						$.ajax({
+							type: "POST",
+							url: "../actions/comment.php",
+							data: {function:"dltcmnt",id:commentid},
+							success: function( data, textStatus, jQxhr ){
+								loadcomment(postid)
+							},
+							error: function( jqXhr, textStatus, errorThrown ){
+								//alert(jqXhr.responseText);
+							}
+						});
+					}
+				}
 				function rate(postid){
 					var rateval = 0;
 					if($('#optradio1'+postid).prop("checked")){

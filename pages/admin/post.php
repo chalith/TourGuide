@@ -71,7 +71,7 @@
 					<div class="col-sm-12 col-xs-12 overimage resize  animated fadeIn ">
 					<h4 class="text-center" ><?php echo stripslashes($row["title"]) ?></h4></div>
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
-					<h6 class="text-center" ><?php echo stripslashes($row["description"]) ?></h6></div>
+					<p><?php echo nl2br(stripslashes($row["description"])) ?></p></div>
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
 					<l class="text-center" ><?php echo $row["time"] ?></l></div>
 				</div>
