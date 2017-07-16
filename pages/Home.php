@@ -265,10 +265,14 @@
 ?>
 <h3>Discussion</h3>
 
-
-
+			
 			<?php
+					$array = array();
 					while($row= $result->fetch_assoc() ) {
+						array_push($array,$row);
+					}
+					for($i=sizeof($array)-1;$i>=0;$i--){
+						$row = $array[$i];
 			?>
 			
 		<div class="panel panel-default" style="border-color:#416143;">
@@ -285,7 +289,7 @@
 				<div class="col-sm-2 pull-left">
 					<img src="../<?php echo $row["picture"] ?>" alt="" class="img-responsive center-block" />
 				</div>
-				<div class="col-sm-5 pull-left">
+				<div class="col-sm-10 pull-left">
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
 					<h3 class="text-center" ><?php echo stripslashes($row["subject"]) ?></h3></div>
 					<div class="col-sm-12 col-xs-12 overimage resize  animated fadeIn ">
@@ -296,7 +300,8 @@
 					<l class="text-center" ><?php echo $row["time"] ?></l></div>
 				</div>
 
-<div class="col-sm-5 pull-left">
+<div class="row">
+<div class="col-sm-12 pull-left">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary" style="border-color:#416143;">
@@ -329,6 +334,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 			</div>
@@ -471,11 +477,11 @@
 <br>
 <h3>OUR SERVICE</h3>
 
-<p>You will never feel strange when we are in your service.We accept the responsibility of providing a friendly and secure tour for you with full of trust.
+<p><small>You will never feel strange when we are in your service.We accept the responsibility of providing a friendly and secure tour for you with full of trust.
 We are eager to direct you to the places you love to visit, without any hesitation.
 By contacting us you will be able to find out the best suited places for your journey according to your taste and also you can seek for most comfortable and safe places for accommodation.
 From the arrival to Sri Lanka till the departure we will serve you heartfully creating remarkable memories of a wonderful journey in your heart. 
-</p>
+</small></p>
 </div>
 </div>
 </div>

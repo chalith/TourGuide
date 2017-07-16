@@ -47,7 +47,12 @@
   				$result = mysqli_query($conn,$sql);
   
 				if ($result->num_rows > 0) {
+					$array = array();
 					while($row= $result->fetch_assoc() ) {
+						array_push($array,$row);
+					}
+					for($i=sizeof($array)-1;$i>=0;$i--){
+						$row = $array[$i];
 			?>
 			
 		<div class="panel panel-default" style="border-color:#416143;">
@@ -65,7 +70,7 @@
 				<div class="col-sm-2 pull-left">
 					<img src="../../<?php echo $row["picture"] ?>" alt="" class="img-responsive center-block" />
 				</div>
-				<div class="col-sm-5 pull-left">
+				<div class="col-sm-10 pull-left">
 					<div class="col-sm-12 col-xs-12 overimage resize animated fadeIn ">
 					<h3 class="text-center" ><?php echo stripslashes($row["subject"]) ?></h3></div>
 					<div class="col-sm-12 col-xs-12 overimage resize  animated fadeIn ">
@@ -76,7 +81,8 @@
 					<l class="text-center" ><?php echo $row["time"] ?></l></div>
 				</div>
 
-<div class="col-sm-5 pull-left">
+<div class="row">
+<div class="col-sm-12 pull-left">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary" style="border-color:#416143;">
@@ -109,6 +115,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 			</div>
